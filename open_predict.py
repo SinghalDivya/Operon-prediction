@@ -1,12 +1,12 @@
 
 # coding: utf-8
-
-
-
+#import the required packages
 import csv
 import numpy as np
 import pandas as pan
 
+#Load the data and convert into dataframes.
+#FileToDataframes function to read the list of input files and convert into specific dataframe.
 def FileToDataframes(filenames):
     table = list()
     with open(filenames) as csvfile:
@@ -25,6 +25,7 @@ def FileToDataframes(filenames):
     E_Coli = temp_E_Coli.drop('garbage',1)
     return E_Coli
 
+#Task2FiletoDataframe function to load and convert another set of input data into dataframes. 
 def Task2FiletoDataframes(filename):
     table = list()
     with open(filename) as csvfile:
@@ -39,6 +40,7 @@ def Task2FiletoDataframes(filename):
     Task_2= pan.DataFrame(tableICare,columns=['Contig','img','CDS','start','stop','garbage','Strand','garbage1','ID'])
     return Task_2
 
+#HandleResult function created to get the desired output in a particular format.
 resultList = list()
 def HandleResult(index,operon,distance,HandleTable,taskNum):
     if taskNum==1:
@@ -59,6 +61,7 @@ def HandleResult(index,operon,distance,HandleTable,taskNum):
                         HandleTable['Contig'][index+1]])
     return
 
+#findOperons function created to predict the operons 
 def findOperons(HandleTable,taskNum):
     rowNum = 0
     operon = 1
@@ -85,6 +88,7 @@ def findOperons(HandleTable,taskNum):
                                                 "Strand", "Gene1", "Gene2"])
     return intDistance1
 
+#outputTableToFile function created to save the output data in a csv file format.
 def outputTableToFile(result,filename):
     result.to_csv(filename,sep='\t',encoding='utf-8')
     return
